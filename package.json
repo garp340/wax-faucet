@@ -1,15 +1,18 @@
 {
 "name": "wax-faucet",
 "version": "1.0.0",
-"description": "WAX faucet",
+"description": "Simple WAX faucet",
 "main": "server.js",
 "scripts": {
 "start": "node server.js"
 },
+"engines": {
+"node": ">=18"
+},
 "dependencies": {
 "cors": "^2.8.5",
 "eosjs": "^22.1.0",
-"express": "^4.18.2",
+"express": "^4.21.2",
 "node-fetch": "^2.7.0"
 }
 }
