@@ -1,65 +1,215 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WAX Hourly Faucet</title>
-    <style>
-        body { font-family: sans-serif; background: #0f172a; color: #fff; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: #1e293b; padding: 30px; border-radius: 12px; max-width: 400px; width: 100%; text-align: center; }
-        h1 { color: #f59e0b; margin-bottom: 8px; }
-        .badge { background: #f59e0b20; color: #f59e0b; padding: 6px 12px; border-radius: 20px; font-weight: bold; display: inline-block; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; border-radius: 6px; border: 1px solid #475569; background: #0f172a; color: #fff; margin-bottom: 12px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #f59e0b; color: #000; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        button:disabled { opacity: 0.5; }
-        #status { margin-top: 15px; font-size: 14px; word-break: break-all; }
-        .success { color: #10b981; }
-        .error { color: #ef4444; }
-    </style>
+
+```
+<title>WAX Faucet</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .card {
+        background: #1e293b;
+        padding: 30px;
+        border-radius: 16px;
+        max-width: 420px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+        color: #f59e0b;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .badge {
+        background: rgba(245, 158, 11, 0.15);
+        color: #f59e0b;
+        padding: 7px 14px;
+        border-radius: 20px;
+        font-weight: bold;
+        display: inline-block;
+        margin-bottom: 25px;
+    }
+
+    input {
+        width: 100%;
+        padding: 13px;
+        border-radius: 8px;
+        border: 1px solid #475569;
+        background: #0f172a;
+        color: white;
+        margin-bottom: 12px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #f59e0b;
+    }
+
+    button {
+        width: 100%;
+        padding: 13px;
+        background: #f59e0b;
+        color: #000;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #fbbf24;
+    }
+
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    #status {
+        margin-top: 18px;
+        font-size: 14px;
+        line-height: 1.5;
+        word-break: break-word;
+    }
+
+    .success {
+        color: #10b981;
+    }
+
+    .error {
+        color: #ef4444;
+    }
+
+    a {
+        color: #60a5fa;
+    }
+</style>
+```
+
 </head>
+
 <body>
-    <div class="card">
-        <h1>WAX Faucet</h1>
-        <div class="badge">0.01 WAX cada hora</div>
-        <input type="text" id="userAccount" placeholder="Tu cuenta WAX (ej. abc12.wam)">
-        <button id="btn" onclick="claim()">Reclamar Tokens</button>
-        <div id="status"></div>
+
+```
+<div class="card">
+
+    <h1>WAX Faucet</h1>
+
+    <div class="badge">
+        0.01 WAX cada hora
     </div>
 
-    <script>
-        async function claim() {
-            const account = document.getElementById('userAccount').value.trim();
-            const btn = document.getElementById('btn');
-            const status = document.getElementById('status');
+    <input
+        type="text"
+        id="userAccount"
+        placeholder="Tu cuenta WAX (ej. abc12.wam)"
+        autocomplete="off"
+    >
 
-            if (!account) return alert('Ingresa tu cuenta WAX.');
+    <button id="btn" onclick="claim()">
+        Reclamar 0.01 WAX
+    </button>
 
-            btn.disabled = true;
-            status.className = '';
-            status.innerText = 'Enviando transacción...';
+    <div id="status"></div>
 
-            try {
-                const res = await fetch('/api/claim', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ userAccount: account })
-                });
+</div>
 
-                const data = await res.json();
-                if (res.ok && data.success) {
-                    status.className = 'success';
-                    status.innerHTML = `¡Éxito! Transacción:<br><a href="https://waxblock.io/transaction/${data.txId}" target="_blank" style="color:#60a5fa">${data.txId}</a>`;
-                } else {
-                    status.className = 'error';
-                    status.innerText = data.error;
-                }
-            } catch (e) {
-                status.className = 'error';
-                status.innerText = 'Error al conectar con el servidor.';
-            } finally {
-                btn.disabled = false;
-            }
+<script>
+
+    async function claim() {
+
+        const accountInput = document.getElementById('userAccount');
+        const btn = document.getElementById('btn');
+        const status = document.getElementById('status');
+
+        const account = accountInput.value.trim();
+
+        if (!account) {
+            status.className = 'error';
+            status.innerText = 'Ingresa tu cuenta WAX.';
+            return;
         }
-    </script>
+
+        btn.disabled = true;
+
+        status.className = '';
+        status.innerText = 'Enviando transacción...';
+
+        try {
+
+            const response = await fetch('/api/claim', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    userAccount: account
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+
+                status.className = 'success';
+
+                status.innerHTML =
+                    `¡Éxito! Has recibido ${data.amount}.<br><br>` +
+                    `Transacción:<br>` +
+                    `<a href="https://waxblock.io/transaction/${data.txId}" target="_blank" rel="noopener noreferrer">${data.txId}</a>`;
+
+            } else {
+
+                status.className = 'error';
+
+                status.innerText =
+                    data.error || 'Ha ocurrido un error.';
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            status.className = 'error';
+
+            status.innerText =
+                'No se pudo conectar con el servidor.';
+
+        } finally {
+
+            btn.disabled = false;
+
+        }
+    }
+
+</script>
+```
+
 </body>
+
 </html>
