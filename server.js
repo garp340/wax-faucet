@@ -3,11 +3,8 @@ const cors = require('cors');
 const path = require('path');
 const fetch = require('node-fetch');
 
-const {
-    Api,
-    JsonRpc,
-    JsSignatureProvider
-} = require('eosjs');
+const { Api, JsonRpc } = require('eosjs');
+const { JsSignatureProvider } = require('eosjs/dist/eosjs-jssig');
 
 const {
     TextEncoder,
