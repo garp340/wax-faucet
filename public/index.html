@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Lo que aparece como título en Google -->
     <title>WaxFaucet</title>
 
-    <!-- Descripción que Google puede mostrar -->
     <meta name="description" content="WAX network token faucet.">
 
-    <!-- Logo/icono de tu web -->
     <link rel="icon" type="image/jpg" href="logowaxfaucet.jpg">
-    
+
     <style>
         * {
             box-sizing: border-box;
@@ -30,9 +27,26 @@
             padding: 20px;
         }
 
-        .container {
+        .page {
             width: 100%;
             max-width: 420px;
+        }
+
+        .ad-banner {
+            width: 100%;
+            min-height: 100px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ad-banner.bottom {
+            margin: 20px auto 0;
+        }
+
+        .container {
+            width: 100%;
             background: #1f2937;
             border-radius: 16px;
             padding: 30px;
@@ -118,35 +132,92 @@
 
 <body>
 
-    <div class="container">
+    <div class="page">
 
-        <h1>WAX Faucet</h1>
+        <!-- ========================= -->
+        <!-- BANNER A-ADS SUPERIOR     -->
+        <!-- ========================= -->
 
-        <div class="amount">
-            0.01000000 WAX
+        <div class="ad-banner">
+
+            <!-- BEGIN AADS AD UNIT 2455670 -->
+
+            <div id="frame-top"
+                 style="width:320px;margin:auto;z-index:99998;height:auto">
+
+                <iframe
+                    data-aa="2455670"
+                    src="//ad.a-ads.com/2455670/?size=320x100"
+                    style="border:0;padding:0;width:320px;height:100px;overflow:hidden;display:block;margin:auto">
+                </iframe>
+
+            </div>
+
+            <!-- END AADS AD UNIT 2455670 -->
+
         </div>
 
-        <div class="description">
-            Introduce tu cuenta WAX para recibir WAX gratis.
+
+        <!-- ========================= -->
+        <!-- CONTENIDO DEL FAUCET      -->
+        <!-- ========================= -->
+
+        <div class="container">
+
+            <h1>WAX Faucet</h1>
+
+            <div class="amount">
+                0.01000000 WAX
+            </div>
+
+            <div class="description">
+                Introduce tu cuenta WAX para recibir WAX gratis.
+            </div>
+
+            <input
+                id="account"
+                type="text"
+                placeholder="ejemplo.wam"
+                autocomplete="off"
+            >
+
+            <button
+                id="claimButton"
+                onclick="claim()"
+            >
+                CLAIM WAX
+            </button>
+
+            <div id="message"></div>
+
         </div>
 
-        <input
-            id="account"
-            type="text"
-            placeholder="ejemplo.wam"
-            autocomplete="off"
-        >
 
-        <button
-            id="claimButton"
-            onclick="claim()"
-        >
-            CLAIM WAX
-        </button>
+        <!-- ========================= -->
+        <!-- BANNER A-ADS INFERIOR     -->
+        <!-- ========================= -->
 
-        <div id="message"></div>
+        <div class="ad-banner bottom">
+
+            <!-- BEGIN AADS AD UNIT 2455670 -->
+
+            <div id="frame-bottom"
+                 style="width:320px;margin:auto;z-index:99998;height:auto">
+
+                <iframe
+                    data-aa="2455670"
+                    src="//ad.a-ads.com/2455670/?size=320x100"
+                    style="border:0;padding:0;width:320px;height:100px;overflow:hidden;display:block;margin:auto">
+                </iframe>
+
+            </div>
+
+            <!-- END AADS AD UNIT 2455670 -->
+
+        </div>
 
     </div>
+
 
     <script>
         async function claim() {
