@@ -33,19 +33,22 @@ const TOKEN_CONTRACT = 'eosio.token';
 const COOLDOWN_MS = 60 * 60 * 1000;
 
 /*
- * Guarda el último claim de cada cuenta
+ * Cooldown de los usuarios
  */
 const claims = new Map();
 
 /*
- * Guarda los últimos claims realizados.
- * Se mantienen solamente los últimos 10.
+ * Últimos claims para mostrar en la web.
+ * Solo guarda las últimas 10 cuentas.
  */
 const recentClaims = [];
 
+
 function configurationOK() {
+
     return PRIVATE_KEY.length > 0 &&
            FAUCET_ACCOUNT.length > 0;
+
 }
 
 
@@ -56,11 +59,21 @@ function configurationOK() {
 app.get('/api/status', (req, res) => {
 
     res.json({
+
         online: true,
-        configured: configurationOK(),
-        faucetAccount: FAUCET_ACCOUNT || null,
-        endpoint: WAX_ENDPOINT,
-        amount: CLAIM_AMOUNT
+
+        configured:
+            configurationOK(),
+
+        faucetAccount:
+            FAUCET_ACCOUNT || null,
+
+        endpoint:
+            WAX_ENDPOINT,
+
+        amount:
+            CLAIM_AMOUNT
+
     });
 
 });
@@ -73,8 +86,12 @@ app.get('/api/status', (req, res) => {
 app.get('/api/recent-claims', (req, res) => {
 
     res.json({
+
         success: true,
-        claims: recentClaims
+
+        claims:
+            recentClaims
+
     });
 
 });
@@ -95,9 +112,12 @@ app.post('/api/claim', async (req, res) => {
             );
 
             return res.status(500).json({
+
                 success: false,
+
                 error:
                     'El servidor no tiene configurada WAX_PRIVATE_KEY.'
+
             });
 
         }
@@ -110,9 +130,12 @@ app.post('/api/claim', async (req, res) => {
             );
 
             return res.status(500).json({
+
                 success: false,
+
                 error:
                     'El servidor no tiene configurada WAX_FAUCET_ACCOUNT.'
+
             });
 
         }
@@ -125,9 +148,12 @@ app.post('/api/claim', async (req, res) => {
         if (typeof userAccount !== 'string') {
 
             return res.status(400).json({
+
                 success: false,
+
                 error:
                     'Introduce una cuenta WAX.'
+
             });
 
         }
@@ -140,9 +166,12 @@ app.post('/api/claim', async (req, res) => {
         if (!/^[a-z1-5.]{1,12}$/.test(userAccount)) {
 
             return res.status(400).json({
+
                 success: false,
+
                 error:
                     'La cuenta WAX no tiene un formato válido.'
+
             });
 
         }
@@ -151,15 +180,20 @@ app.post('/api/claim', async (req, res) => {
         if (userAccount === FAUCET_ACCOUNT) {
 
             return res.status(400).json({
+
                 success: false,
+
                 error:
                     'No puedes reclamar en la cuenta del faucet.'
+
             });
 
         }
 
 
-        const now = Date.now();
+        const now =
+            Date.now();
+
 
         const previousClaim =
             claims.get(userAccount);
@@ -180,11 +214,14 @@ app.post('/api/claim', async (req, res) => {
 
 
             return res.status(429).json({
+
                 success: false,
+
                 error:
                     'Ya has reclamado. Espera ' +
                     remaining +
                     ' minuto(s).'
+
             });
 
         }
@@ -227,10 +264,21 @@ app.post('/api/claim', async (req, res) => {
         );
 
 
+        /*
+         * =========================
+         * TRANSFERENCIA WAX
+         * =========================
+         *
+         * Esta parte se mantiene
+         * igual que en tu código
+         * original.
+         */
+
         const result =
             await api.transact(
 
                 {
+
                     actions: [
 
                         {
@@ -274,6 +322,7 @@ app.post('/api/claim', async (req, res) => {
                         }
 
                     ]
+
                 },
 
                 {
@@ -290,8 +339,11 @@ app.post('/api/claim', async (req, res) => {
 
 
         /*
-         * Guardar cooldown
+         * =========================
+         * GUARDAR COOLDOWN
+         * =========================
          */
+
         claims.set(
             userAccount,
             Date.now()
@@ -299,8 +351,15 @@ app.post('/api/claim', async (req, res) => {
 
 
         /*
-         * Guardar último claim
+         * =========================
+         * GUARDAR ÚLTIMO CLAIM
+         * =========================
+         *
+         * Esto ocurre SOLO después
+         * de que la transferencia
+         * haya sido correcta.
          */
+
         recentClaims.unshift({
 
             account:
@@ -313,9 +372,9 @@ app.post('/api/claim', async (req, res) => {
 
 
         /*
-         * Mantener solamente
-         * los últimos 10
+         * Máximo 10 claims
          */
+
         if (recentClaims.length > 10) {
 
             recentClaims.pop();
@@ -329,10 +388,15 @@ app.post('/api/claim', async (req, res) => {
         );
 
 
+        /*
+         * =========================
+         * RESPUESTA ORIGINAL
+         * =========================
+         */
+
         return res.json({
 
-            success:
-                true,
+            success: true,
 
             amount:
                 CLAIM_AMOUNT,
@@ -382,8 +446,7 @@ app.post('/api/claim', async (req, res) => {
 
         return res.status(500).json({
 
-            success:
-                false,
+            success: false,
 
             error:
                 message
@@ -415,19 +478,16 @@ app.listen(PORT, () => {
         '================================'
     );
 
-
     console.log(
         'Cuenta:',
         FAUCET_ACCOUNT ||
         'NO CONFIGURADA'
     );
 
-
     console.log(
         'Endpoint:',
         WAX_ENDPOINT
     );
-
 
     console.log(
         'Private key:',
@@ -436,12 +496,10 @@ app.listen(PORT, () => {
             : 'NO CONFIGURADA'
     );
 
-
     console.log(
         'Puerto:',
         PORT
     );
-
 
     console.log(
         '================================'
