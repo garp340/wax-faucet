@@ -15,13 +15,20 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #111827;
+            background:
+                radial-gradient(
+                    circle at top,
+                    #1f2937 0%,
+                    #111827 45%,
+                    #0b1120 100%
+                );
             color: #ffffff;
             font-family: Arial, sans-serif;
             padding: 20px;
@@ -30,7 +37,70 @@
         .page {
             width: 100%;
             max-width: 420px;
+            margin: 0 auto;
         }
+
+        /* ========================= */
+        /* HEADER                    */
+        /* ========================= */
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #f59e0b;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.25);
+        }
+
+        .header-name {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .telegram-header {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 11px;
+            border-radius: 8px;
+            background: #172554;
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            border: 1px solid #1e40af;
+            transition: 0.2s ease;
+        }
+
+        .telegram-header:hover {
+            background: #1e3a8a;
+            transform: translateY(-1px);
+        }
+
+        .telegram-header svg {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+        }
+
+        /* ========================= */
+        /* ADS                       */
+        /* ========================= */
 
         .ad-banner {
             width: 100%;
@@ -45,43 +115,143 @@
             margin: 20px auto 0;
         }
 
+        /* ========================= */
+        /* MAIN CARD                 */
+        /* ========================= */
+
         .container {
             width: 100%;
-            background: #1f2937;
-            border-radius: 16px;
+            background: rgba(31, 41, 55, 0.96);
+            border: 1px solid #374151;
+            border-radius: 18px;
             padding: 30px;
             text-align: center;
+            box-shadow:
+                0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        /* ========================= */
+        /* WAX ICON                  */
+        /* ========================= */
+
+        .faucet-icon {
+            width: 58px;
+            height: 58px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .wax-icon {
+            width: 38px;
+            height: 38px;
+            object-fit: contain;
+        }
+
+        .claim-wax-icon {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+            vertical-align: middle;
+            margin-right: 6px;
+        }
+
+        .amount-wax-icon {
+            width: 25px;
+            height: 25px;
+            object-fit: contain;
+            vertical-align: middle;
+            margin-right: 5px;
         }
 
         h1 {
-            margin: 0 0 10px;
-            font-size: 32px;
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* ========================= */
+        /* ONLINE STATUS             */
+        /* ========================= */
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 12px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.10);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            color: #34d399;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #34d399;
+            box-shadow: 0 0 8px #34d399;
+        }
+
+        /* ========================= */
+        /* AMOUNT                    */
+        /* ========================= */
+
+        .amount-label {
+            color: #9ca3af;
+            font-size: 13px;
+            margin-bottom: 5px;
         }
 
         .amount {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: bold;
-            margin: 20px 0;
+            color: #fbbf24;
+            margin-bottom: 22px;
         }
 
         .description {
             color: #9ca3af;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            font-size: 14px;
         }
+
+        /* ========================= */
+        /* FORM                      */
+        /* ========================= */
 
         input {
             width: 100%;
             padding: 14px;
-            border-radius: 8px;
+            border-radius: 9px;
             border: 1px solid #4b5563;
             background: #111827;
             color: white;
             font-size: 16px;
             outline: none;
+            transition: 0.2s ease;
+        }
+
+        input::placeholder {
+            color: #6b7280;
         }
 
         input:focus {
             border-color: #f59e0b;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.10);
         }
 
         button {
@@ -89,21 +259,31 @@
             margin-top: 12px;
             padding: 14px;
             border: 0;
-            border-radius: 8px;
+            border-radius: 9px;
             background: #f59e0b;
             color: #111827;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         button:hover {
             background: #fbbf24;
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
         }
 
         button:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
         }
 
         #message {
@@ -129,7 +309,86 @@
         }
 
         /* ========================= */
-        /* FOOTER                    */
+        /* STATS                    */
+        /* ========================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .stat {
+            background: #111827;
+            border: 1px solid #374151;
+            border-radius: 10px;
+            padding: 12px 8px;
+        }
+
+        .stat-value {
+            font-size: 17px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .stat-label {
+            margin-top: 4px;
+            font-size: 11px;
+            color: #6b7280;
+        }
+
+        /* ========================= */
+        /* HOW IT WORKS              */
+        /* ========================= */
+
+        .how-it-works {
+            margin-top: 20px;
+            padding: 18px;
+            background: rgba(17, 24, 39, 0.65);
+            border: 1px solid #374151;
+            border-radius: 14px;
+            text-align: left;
+        }
+
+        .how-it-works h2 {
+            margin: 0 0 14px;
+            text-align: center;
+            font-size: 17px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            min-width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f59e0b;
+            color: #111827;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .step-text {
+            color: #d1d5db;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        /* ========================= */
+        /* FOOTER                   */
         /* ========================= */
 
         .footer {
@@ -139,7 +398,6 @@
             font-size: 14px;
         }
 
-        /* Telegram - DIV separado */
         .telegram-footer {
             margin-bottom: 10px;
         }
@@ -164,9 +422,42 @@
             fill: currentColor;
         }
 
-        /* Copyright - DIV separado */
         .copyright-footer {
-            color: #9ca3af;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        /* ========================= */
+        /* MOBILE                   */
+        /* ========================= */
+
+        @media (max-width: 420px) {
+
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 24px 20px;
+            }
+
+            .header-name {
+                font-size: 22px;
+            }
+
+            .header-logo {
+                width: 44px;
+                height: 44px;
+            }
+
+            .telegram-header {
+                padding: 7px 9px;
+                font-size: 12px;
+            }
+
+            .amount {
+                font-size: 23px;
+            }
         }
     </style>
 </head>
@@ -176,6 +467,47 @@
     <div class="page">
 
         <!-- ========================= -->
+        <!-- HEADER                    -->
+        <!-- ========================= -->
+
+        <div class="header">
+
+            <div class="brand">
+
+                <img
+                    src="logowaxfaucet.jpg"
+                    alt="WaxFaucet"
+                    class="header-logo"
+                >
+
+                <div class="header-name">
+                    waxfaucet
+                </div>
+
+            </div>
+
+            <a
+                class="telegram-header"
+                href="https://t.me/waxfaucet"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <svg
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+                    <path d="M21.5 3.5 18.3 20c-.24 1.17-.88 1.46-1.78.91l-4.88-3.6-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.98 9.07-8.19c.39-.35-.09-.55-.61-.2L5.91 13.8l-4.82-1.51c-1.05-.33-1.07-1.05.22-1.55L20.14 3.1c.87-.32 1.63.2 1.36.4Z"/>
+                </svg>
+
+                Telegram
+
+            </a>
+
+        </div>
+
+
+        <!-- ========================= -->
         <!-- BANNER A-ADS SUPERIOR     -->
         <!-- ========================= -->
 
@@ -183,14 +515,16 @@
 
             <!-- BEGIN AADS AD UNIT 2455670 -->
 
-            <div id="frame-top"
-                 style="width:320px;margin:auto;z-index:99998;height:auto">
+            <div
+                id="frame-top"
+                style="width:320px;margin:auto;z-index:99998;height:auto"
+            >
 
                 <iframe
                     data-aa="2455670"
                     src="//ad.a-ads.com/2455670/?size=320x100"
-                    style="border:0;padding:0;width:320px;height:100px;overflow:hidden;display:block;margin:auto">
-                </iframe>
+                    style="border:0;padding:0;width:320px;height:100px;overflow:hidden;display:block;margin:auto"
+                ></iframe>
 
             </div>
 
@@ -200,20 +534,72 @@
 
 
         <!-- ========================= -->
-        <!-- CONTENIDO DEL FAUCET      -->
+        <!-- FAUCET                    -->
         <!-- ========================= -->
 
         <div class="container">
 
-            <h1>WAX Faucet</h1>
+            <!-- WAX LOGO -->
+
+            <div class="faucet-icon">
+
+                <img
+                    src="wax.png"
+                    alt="WAX"
+                    class="wax-icon"
+                >
+
+            </div>
+
+
+            <h1>
+                WAX Faucet
+            </h1>
+
+
+            <div class="subtitle">
+                Get free WAX directly to your account
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                Faucet Online
+
+            </div>
+
+
+            <!-- AMOUNT -->
+
+            <div class="amount-label">
+                Current reward
+            </div>
 
             <div class="amount">
+
+                <img
+                    src="wax.png"
+                    alt="WAX"
+                    class="amount-wax-icon"
+                >
+
                 0.01000000 WAX
+
             </div>
+
+
+            <!-- DESCRIPTION -->
 
             <div class="description">
                 Introduce tu cuenta WAX para recibir WAX gratis.
             </div>
+
+
+            <!-- INPUT -->
 
             <input
                 id="account"
@@ -222,14 +608,118 @@
                 autocomplete="off"
             >
 
+
+            <!-- CLAIM BUTTON -->
+
             <button
                 id="claimButton"
                 onclick="claim()"
             >
-                CLAIM WAX
+
+                <img
+                    src="wax.png"
+                    alt="WAX"
+                    class="claim-wax-icon"
+                >
+
+                CLAIM 0.01000000 WAX
+
             </button>
 
+
+            <!-- MESSAGE -->
+
             <div id="message"></div>
+
+
+            <!-- STATS -->
+
+            <div class="stats">
+
+                <div class="stat">
+
+                    <div class="stat-value">
+
+                        <img
+                            src="wax.png"
+                            alt="WAX"
+                            class="claim-wax-icon"
+                        >
+
+                        0.010 WAX
+
+                    </div>
+
+                    <div class="stat-label">
+                        REWARD
+                    </div>
+
+                </div>
+
+
+                <div class="stat">
+
+                    <div class="stat-value">
+                        WAX
+                    </div>
+
+                    <div class="stat-label">
+                        NETWORK
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- HOW IT WORKS -->
+
+            <div class="how-it-works">
+
+                <h2>
+                    How it works
+                </h2>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <div class="step-text">
+                        Introduce tu cuenta WAX.
+                    </div>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <div class="step-text">
+                        Pulsa el botón CLAIM WAX.
+                    </div>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <div class="step-text">
+                        Recibe los WAX directamente en tu cuenta.
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -266,6 +756,7 @@
         <div class="footer">
 
             <!-- TELEGRAM - DIV 1 -->
+
             <div class="telegram-footer">
 
                 <a
@@ -276,7 +767,6 @@
                     aria-label="Grupo de Telegram de WaxFaucet"
                 >
 
-                    <!-- Icono de Telegram -->
                     <svg
                         class="telegram-icon"
                         viewBox="0 0 24 24"
@@ -293,6 +783,7 @@
 
 
             <!-- COPYRIGHT - DIV 2 -->
+
             <div class="copyright-footer">
                 © 2026 • waxfaucet
             </div>
@@ -301,6 +792,10 @@
 
     </div>
 
+
+    <!-- ========================= -->
+    <!-- JAVASCRIPT                -->
+    <!-- ========================= -->
 
     <script>
         async function claim() {
@@ -317,6 +812,7 @@
             const account =
                 input.value.trim();
 
+
             if (!account) {
 
                 message.className = 'error';
@@ -327,12 +823,14 @@
                 return;
             }
 
+
             button.disabled = true;
 
             message.className = 'loading';
 
             message.textContent =
                 'Enviando WAX...';
+
 
             try {
 
@@ -351,8 +849,10 @@
                         })
                     });
 
+
                 const data =
                     await response.json();
+
 
                 if (response.ok && data.success) {
 
@@ -364,35 +864,4 @@
                         data.amount +
                         '<br><br>' +
                         '<a href="https://waxblock.io/transaction/' +
-                        encodeURIComponent(data.transaction) +
-                        '" target="_blank" rel="noopener noreferrer">' +
-                        'Ver transacción' +
-                        '</a>';
-
-                    input.value = '';
-
-                } else {
-
-                    message.className = 'error';
-
-                    message.textContent =
-                        data.error ||
-                        'No se pudo realizar el claim.';
-                }
-
-            } catch (error) {
-
-                console.error(error);
-
-                message.className = 'error';
-
-                message.textContent =
-                    'No se pudo conectar con el servidor.';
-            }
-
-            button.disabled = false;
-        }
-    </script>
-
-</body>
-</html>
+                        encodeURIComponent(dat
