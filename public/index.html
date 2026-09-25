@@ -1,382 +1,726 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>WaxFaucet</title>
 
-    <meta name="description" content="WAX network token faucet.">
+    <meta
+        name="description"
+        content="WAX network token faucet."
+    >
 
-    <link rel="icon" type="image/jpg" href="logowaxfaucet.jpg">
+    <link
+        rel="icon"
+        type="image/jpg"
+        href="logowaxfaucet.jpg"
+    >
 
     <style>
+
         * {
             box-sizing: border-box;
         }
 
+
         body {
+
             margin: 0;
+
             min-height: 100vh;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             background: #111827;
+
             color: #ffffff;
-            font-family: Arial, sans-serif;
+
+            font-family:
+                Arial,
+                sans-serif;
+
             padding: 20px;
+
         }
 
+
         .page {
+
             width: 100%;
+
             max-width: 420px;
+
         }
+
 
         /* ========================= */
         /* HEADER                    */
         /* ========================= */
 
         .header {
+
             width: 100%;
+
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             margin-bottom: 20px;
+
         }
+
 
         .brand {
+
             display: flex;
+
             align-items: center;
+
             gap: 10px;
+
         }
+
 
         .header-logo {
+
             width: 48px;
+
             height: 48px;
+
             border-radius: 50%;
+
             object-fit: cover;
-            border: 2px solid #f59e0b;
+
+            border:
+                2px solid #f59e0b;
+
         }
+
 
         .header-name {
+
             font-size: 24px;
+
             font-weight: bold;
+
         }
+
 
         .telegram-header {
+
             display: flex;
+
             align-items: center;
+
             gap: 6px;
+
             padding: 8px 10px;
+
             background: #172554;
-            border: 1px solid #1e40af;
+
+            border:
+                1px solid #1e40af;
+
             border-radius: 8px;
+
             color: #60a5fa;
+
             text-decoration: none;
+
             font-size: 13px;
+
             font-weight: bold;
+
         }
+
 
         .telegram-header:hover {
+
             background: #1e3a8a;
+
         }
 
+
         .telegram-header svg {
+
             width: 17px;
+
             height: 17px;
+
             fill: currentColor;
+
         }
+
 
         /* ========================= */
         /* ADS                       */
         /* ========================= */
 
         .ad-banner {
+
             width: 100%;
+
             min-height: 100px;
-            margin: 0 auto 20px;
+
+            margin:
+                0 auto 20px;
+
             display: flex;
+
             justify-content: center;
+
             align-items: center;
+
         }
 
+
         .ad-banner.bottom {
-            margin: 20px auto 0;
+
+            margin:
+                20px auto 0;
+
         }
+
 
         /* ========================= */
         /* FAUCET                    */
         /* ========================= */
 
         .container {
+
             width: 100%;
+
             background: #1f2937;
+
             border-radius: 16px;
+
             padding: 30px;
+
             text-align: center;
+
         }
+
 
         .faucet-icon {
+
             width: 58px;
+
             height: 58px;
-            margin: 0 auto 12px;
+
+            margin:
+                0 auto 12px;
+
             border-radius: 50%;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             background: #111827;
-            border: 1px solid #374151;
+
+            border:
+                1px solid #374151;
+
         }
+
 
         .wax-icon {
+
             width: 40px;
+
             height: 40px;
+
             object-fit: contain;
+
         }
+
 
         h1 {
-            margin: 0 0 10px;
+
+            margin:
+                0 0 10px;
+
             font-size: 32px;
+
         }
+
 
         .subtitle {
+
             color: #9ca3af;
+
             font-size: 14px;
+
             margin-bottom: 20px;
+
         }
+
 
         .status {
+
             display: inline-flex;
+
             align-items: center;
+
             gap: 7px;
+
             margin-bottom: 18px;
-            padding: 7px 12px;
+
+            padding:
+                7px 12px;
+
             border-radius: 20px;
-            background: rgba(16, 185, 129, 0.10);
-            border: 1px solid rgba(16, 185, 129, 0.25);
+
+            background:
+                rgba(
+                    16,
+                    185,
+                    129,
+                    0.10
+                );
+
+            border:
+                1px solid
+                rgba(
+                    16,
+                    185,
+                    129,
+                    0.25
+                );
+
             color: #34d399;
+
             font-size: 13px;
+
             font-weight: bold;
+
         }
+
 
         .status-dot {
+
             width: 8px;
+
             height: 8px;
+
             border-radius: 50%;
+
             background: #34d399;
-            box-shadow: 0 0 7px #34d399;
+
+            box-shadow:
+                0 0 7px #34d399;
+
         }
+
 
         .amount-label {
+
             color: #9ca3af;
+
             font-size: 13px;
+
             margin-bottom: 5px;
+
         }
+
 
         .amount {
+
             font-size: 22px;
+
             font-weight: bold;
-            margin: 10px 0 20px;
+
+            margin:
+                10px 0 20px;
+
             color: #fbbf24;
+
         }
+
 
         .amount-wax-icon {
+
             width: 24px;
+
             height: 24px;
+
             object-fit: contain;
+
             vertical-align: middle;
+
             margin-right: 5px;
+
         }
+
 
         .description {
+
             color: #9ca3af;
+
             margin-bottom: 25px;
+
             line-height: 1.5;
+
         }
+
 
         input {
+
             width: 100%;
+
             padding: 14px;
+
             border-radius: 8px;
-            border: 1px solid #4b5563;
+
+            border:
+                1px solid #4b5563;
+
             background: #111827;
+
             color: white;
+
             font-size: 16px;
+
             outline: none;
+
         }
+
 
         input:focus {
-            border-color: #f59e0b;
+
+            border-color:
+                #f59e0b;
+
         }
+
 
         button {
+
             width: 100%;
+
             margin-top: 12px;
+
             padding: 14px;
+
             border: 0;
+
             border-radius: 8px;
+
             background: #f59e0b;
+
             color: #111827;
+
             font-size: 16px;
+
             font-weight: bold;
+
             cursor: pointer;
+
         }
+
 
         button:hover {
+
             background: #fbbf24;
+
         }
+
 
         button:disabled {
+
             opacity: 0.5;
+
             cursor: not-allowed;
+
         }
+
 
         .claim-wax-icon {
+
             width: 20px;
+
             height: 20px;
+
             object-fit: contain;
+
             vertical-align: middle;
+
             margin-right: 6px;
+
         }
+
 
         #message {
+
             margin-top: 20px;
+
             line-height: 1.5;
+
             word-break: break-word;
+
         }
+
 
         .success {
+
             color: #34d399;
+
         }
+
 
         .error {
+
             color: #f87171;
+
         }
+
 
         .loading {
+
             color: #fbbf24;
+
         }
 
+
         a {
+
             color: #60a5fa;
+
         }
+
 
         /* ========================= */
         /* STATS                     */
         /* ========================= */
 
         .stats {
+
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 10px;
+
             margin-top: 20px;
+
         }
+
 
         .stat {
+
             background: #111827;
-            border: 1px solid #374151;
+
+            border:
+                1px solid #374151;
+
             border-radius: 10px;
+
             padding: 12px;
+
         }
+
 
         .stat-value {
+
             font-size: 16px;
+
             font-weight: bold;
+
         }
+
 
         .stat-label {
+
             margin-top: 5px;
+
             font-size: 11px;
+
             color: #6b7280;
+
         }
 
+
         /* ========================= */
-        /* HOW IT WORKS              */
+        /* LATEST CLAIMS             */
         /* ========================= */
 
-        .how-it-works {
+        .latest-claims {
+
             margin-top: 20px;
+
             padding: 18px;
+
             background: #111827;
-            border: 1px solid #374151;
+
+            border:
+                1px solid #374151;
+
             border-radius: 12px;
+
             text-align: left;
+
         }
 
-        .how-it-works h2 {
-            margin: 0 0 15px;
+
+        .latest-claims h2 {
+
+            margin:
+                0 0 15px;
+
             text-align: center;
+
             font-size: 17px;
+
         }
 
-        .step {
+
+        .claim-row {
+
             display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
 
-        .step:last-child {
-            margin-bottom: 0;
-        }
-
-        .step-number {
-            min-width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            background: #f59e0b;
-            color: #111827;
-            font-size: 12px;
-            font-weight: bold;
+
+            justify-content: space-between;
+
+            gap: 10px;
+
+            padding: 10px 0;
+
+            border-bottom:
+                1px solid #374151;
+
         }
 
-        .step-text {
-            color: #d1d5db;
-            font-size: 13px;
-            line-height: 1.4;
+
+        .claim-row:last-child {
+
+            border-bottom: 0;
+
         }
+
+
+        .claim-account {
+
+            color: #ffffff;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            word-break: break-all;
+
+        }
+
+
+        .claim-amount {
+
+            color: #fbbf24;
+
+            font-size: 12px;
+
+            white-space: nowrap;
+
+        }
+
+
+        .claims-loading,
+
+        .no-claims {
+
+            text-align: center;
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+        }
+
 
         /* ========================= */
         /* FOOTER                    */
         /* ========================= */
 
         .footer {
+
             text-align: center;
+
             margin-top: 25px;
+
             padding-bottom: 10px;
+
             font-size: 14px;
+
         }
+
 
         .telegram-footer {
+
             margin-bottom: 10px;
+
         }
+
 
         .telegram-link {
+
             display: inline-flex;
+
             align-items: center;
+
             justify-content: center;
+
             gap: 8px;
+
             color: #60a5fa;
+
             text-decoration: none;
+
             font-weight: bold;
+
         }
+
 
         .telegram-link:hover {
+
             color: #93c5fd;
+
         }
+
 
         .telegram-icon {
+
             width: 20px;
+
             height: 20px;
+
             fill: currentColor;
+
         }
 
+
         .copyright-footer {
+
             color: #6b7280;
+
             font-size: 13px;
+
         }
+
 
         /* ========================= */
         /* MOBILE                    */
@@ -385,444 +729,642 @@
         @media (max-width: 420px) {
 
             body {
+
                 padding: 15px;
+
             }
+
 
             .container {
-                padding: 25px 20px;
+
+                padding:
+                    25px 20px;
+
             }
+
 
             .header-name {
+
                 font-size: 21px;
+
             }
+
 
             .header-logo {
+
                 width: 44px;
+
                 height: 44px;
+
             }
 
+
             .telegram-header {
+
                 font-size: 12px;
-                padding: 7px 9px;
+
+                padding:
+                    7px 9px;
+
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-    <div class="page">
 
-        <!-- ========================= -->
-        <!-- HEADER                    -->
-        <!-- ========================= -->
+<div class="page">
 
-        <div class="header">
 
-            <div class="brand">
+    <!-- ========================= -->
+    <!-- HEADER                    -->
+    <!-- ========================= -->
 
-                <img
-                    src="logowaxfaucet.jpg"
-                    alt="WaxFaucet"
-                    class="header-logo"
-                >
+    <div class="header">
 
-                <div class="header-name">
-                    waxfaucet
-                </div>
 
-            </div>
+        <div class="brand">
 
-            <a
-                href="https://t.me/waxfaucet"
-                class="telegram-header"
-                target="_blank"
-                rel="noopener noreferrer"
+
+            <img
+                src="logowaxfaucet.jpg"
+                alt="WaxFaucet"
+                class="header-logo"
             >
 
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                >
-                    <path d="M21.5 3.5 18.3 20c-.24 1.17-.88 1.46-1.78.91l-4.88-3.6-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.98 9.07-8.19c.39-.35-.09-.55-.61-.2L5.91 13.8l-4.82-1.51c-1.05-.33-1.07-1.05.22-1.55L20.14 3.1c.87-.32 1.63.2 1.36.4Z"/>
-                </svg>
 
-                Telegram
+            <div class="header-name">
+                waxfaucet
+            </div>
 
-            </a>
 
         </div>
 
 
-        <!-- ========================= -->
-        <!-- BANNER A-ADS SUPERIOR     -->
-        <!-- ========================= -->
+        <a
+            href="https://t.me/waxfaucet"
+            class="telegram-header"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
 
-        <div class="ad-banner">
 
-            <div
-                id="frame-top"
-                style="width:320px;margin:auto;z-index:99998;height:auto"
+            <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
             >
 
-                <iframe
-                    data-aa="2455670"
-                    src="//ad.a-ads.com/2455670/?size=320x100"
-                    style="border:0;padding:0;width:320px;height:100px;overflow:hidden;display:block;margin:auto"
-                >
-                </iframe>
+                <path d="M21.5 3.5 18.3 20c-.24 1.17-.88 1.46-1.78.91l-4.88-3.6-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.98 9.07-8.19c.39-.35-.09-.55-.61-.2L5.91 13.8l-4.82-1.51c-1.05-.33-1.07-1.05.22-1.55L20.14 3.1c.87-.32 1.63.2 1.36.4Z"/>
 
-            </div>
+            </svg>
 
-        </div>
 
+            Telegram
 
-        <!-- ========================= -->
-        <!-- CONTENIDO DEL FAUCET      -->
-        <!-- ========================= -->
 
-        <div class="container">
+        </a>
 
-            <div class="faucet-icon">
-
-                <img
-                    src="wax.png"
-                    alt="WAX"
-                    class="wax-icon"
-                >
-
-            </div>
-
-
-            <h1>
-                WAX Faucet
-            </h1>
-
-
-            <div class="subtitle">
-                Get free WAX directly to your account
-            </div>
-
-
-            <div class="status">
-
-                <span class="status-dot"></span>
-
-                Faucet Online
-
-            </div>
-
-
-            <div class="amount-label">
-                Current reward
-            </div>
-
-
-            <div class="amount">
-
-                <img
-                    src="wax.png"
-                    alt="WAX"
-                    class="amount-wax-icon"
-                >
-
-                0.01000000 WAX
-
-            </div>
-
-
-            <div class="description">
-                Introduce tu cuenta WAX para recibir WAX gratis.
-            </div>
-
-
-            <input
-                id="account"
-                type="text"
-                placeholder="ejemplo.wam"
-                autocomplete="off"
-            >
-
-
-            <button
-                id="claimButton"
-                onclick="claim()"
-            >
-
-                <img
-                    src="wax.png"
-                    alt="WAX"
-                    class="claim-wax-icon"
-                >
-
-                CLAIM 0.01000000 WAX
-
-            </button>
-
-
-            <div id="message"></div>
-
-
-            <!-- ========================= -->
-            <!-- ESTADÍSTICAS              -->
-            <!-- ========================= -->
-
-            <div class="stats">
-
-                <div class="stat">
-
-                    <div class="stat-value">
-
-                        <img
-                            src="wax.png"
-                            alt="WAX"
-                            class="claim-wax-icon"
-                        >
-
-                        0.010 WAX
-
-                    </div>
-
-                    <div class="stat-label">
-                        REWARD
-                    </div>
-
-                </div>
-
-
-                <div class="stat">
-
-                    <div class="stat-value">
-                        WAX
-                    </div>
-
-                    <div class="stat-label">
-                        NETWORK
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- ========================= -->
-            <!-- HOW IT WORKS              -->
-            <!-- ========================= -->
-
-            <div class="how-it-works">
-
-                <h2>
-                    How it works
-                </h2>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        1
-                    </div>
-
-                    <div class="step-text">
-                        Introduce tu cuenta WAX.
-                    </div>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        2
-                    </div>
-
-                    <div class="step-text">
-                        Pulsa el botón CLAIM WAX.
-                    </div>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        3
-                    </div>
-
-                    <div class="step-text">
-                        Recibe los WAX directamente en tu cuenta.
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ========================= -->
-        <!-- BANNER BETFURY INFERIOR   -->
-        <!-- ========================= -->
-
-        <div class="ad-banner bottom">
-
-            <a
-                href="https://bf1.io/?r=User9592889"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-
-                <img
-                    src="https://bfstatic.io/pictures/Box/gif/320x100.gif"
-                    alt="BetFury"
-                    width="320"
-                    height="100"
-                    style="display:block;margin:auto;border:0;"
-                >
-
-            </a>
-
-        </div>
-
-
-        <!-- ========================= -->
-        <!-- FOOTER                    -->
-        <!-- ========================= -->
-
-        <div class="footer">
-
-            <!-- Telegram separado -->
-
-            <div class="telegram-footer">
-
-                <a
-                    class="telegram-link"
-                    href="https://t.me/waxfaucet"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Grupo de Telegram de WaxFaucet"
-                >
-
-                    <svg
-                        class="telegram-icon"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                    >
-                        <path d="M21.5 3.5 18.3 20c-.24 1.17-.88 1.46-1.78.91l-4.88-3.6-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.98 9.07-8.19c.39-.35-.09-.55-.61-.2L5.91 13.8l-4.82-1.51c-1.05-.33-1.07-1.05.22-1.55L20.14 3.1c.87-.32 1.63.2 1.36.4Z"/>
-                    </svg>
-
-                    @waxfaucet
-
-                </a>
-
-            </div>
-
-
-            <!-- Copyright separado -->
-
-            <div class="copyright-footer">
-                © 2026 • waxfaucet
-            </div>
-
-        </div>
 
     </div>
 
 
     <!-- ========================= -->
-    <!-- CLAIM — NO MODIFICADO     -->
+    <!-- A-ADS                    -->
     <!-- ========================= -->
 
-    <script>
-        async function claim() {
+    <div class="ad-banner">
 
-            const input =
-                document.getElementById('account');
 
-            const button =
-                document.getElementById('claimButton');
+        <div
+            id="frame-top"
+            style="
+                width:320px;
+                margin:auto;
+                z-index:99998;
+                height:auto
+            "
+        >
 
-            const message =
-                document.getElementById('message');
 
-            const account =
-                input.value.trim();
+            <iframe
+                data-aa="2455670"
+                src="//ad.a-ads.com/2455670/?size=320x100"
+                style="
+                    border:0;
+                    padding:0;
+                    width:320px;
+                    height:100px;
+                    overflow:hidden;
+                    display:block;
+                    margin:auto
+                "
+            >
+            </iframe>
 
-            if (!account) {
 
-                message.className = 'error';
+        </div>
 
-                message.textContent =
-                    'Introduce tu cuenta WAX.';
 
-                return;
-            }
+    </div>
 
-            button.disabled = true;
 
-            message.className = 'loading';
+    <!-- ========================= -->
+    <!-- FAUCET                    -->
+    <!-- ========================= -->
+
+    <div class="container">
+
+
+        <div class="faucet-icon">
+
+
+            <img
+                src="wax.png"
+                alt="WAX"
+                class="wax-icon"
+            >
+
+
+        </div>
+
+
+        <h1>
+            WAX Faucet
+        </h1>
+
+
+        <div class="subtitle">
+            Get free WAX directly to your account
+        </div>
+
+
+        <div class="status">
+
+
+            <span class="status-dot"></span>
+
+
+            Faucet Online
+
+
+        </div>
+
+
+        <div class="amount-label">
+            Current reward
+        </div>
+
+
+        <div class="amount">
+
+
+            <img
+                src="wax.png"
+                alt="WAX"
+                class="amount-wax-icon"
+            >
+
+
+            0.01000000 WAX
+
+
+        </div>
+
+
+        <div class="description">
+            Introduce tu cuenta WAX para recibir WAX gratis.
+        </div>
+
+
+        <input
+            id="account"
+            type="text"
+            placeholder="ejemplo.wam"
+            autocomplete="off"
+        >
+
+
+        <button
+            id="claimButton"
+            onclick="claim()"
+        >
+
+
+            <img
+                src="wax.png"
+                alt="WAX"
+                class="claim-wax-icon"
+            >
+
+
+            CLAIM 0.01000000 WAX
+
+
+        </button>
+
+
+        <div id="message"></div>
+
+
+        <!-- ========================= -->
+        <!-- STATS                     -->
+        <!-- ========================= -->
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+
+                <div class="stat-value">
+
+
+                    <img
+                        src="wax.png"
+                        alt="WAX"
+                        class="claim-wax-icon"
+                    >
+
+
+                    0.010 WAX
+
+
+                </div>
+
+
+                <div class="stat-label">
+                    REWARD
+                </div>
+
+
+            </div>
+
+
+            <div class="stat">
+
+
+                <div class="stat-value">
+                    WAX
+                </div>
+
+
+                <div class="stat-label">
+                    NETWORK
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- LATEST CLAIMS             -->
+        <!-- ========================= -->
+
+        <div class="latest-claims">
+
+
+            <h2>
+                Latest Claims
+            </h2>
+
+
+            <div id="recentClaims">
+
+
+                <div class="claims-loading">
+                    Cargando claims...
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- BETFURY                  -->
+    <!-- ========================= -->
+
+    <div class="ad-banner bottom">
+
+
+        <a
+            href="https://bf1.io/?r=User9592889"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+
+
+            <img
+                src="https://bfstatic.io/pictures/Box/gif/320x100.gif"
+                alt="BetFury"
+                width="320"
+                height="100"
+                style="
+                    display:block;
+                    margin:auto;
+                    border:0;
+                "
+            >
+
+
+        </a>
+
+
+    </div>
+
+
+    <!-- ========================= -->
+    <!-- FOOTER                    -->
+    <!-- ========================= -->
+
+    <div class="footer">
+
+
+        <div class="telegram-footer">
+
+
+            <a
+                class="telegram-link"
+                href="https://t.me/waxfaucet"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Grupo de Telegram de WaxFaucet"
+            >
+
+
+                <svg
+                    class="telegram-icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                >
+
+                    <path d="M21.5 3.5 18.3 20c-.24 1.17-.88 1.46-1.78.91l-4.88-3.6-2.35 2.26c-.26.26-.48.48-.98.48l.35-4.98 9.07-8.19c.39-.35-.09-.55-.61-.2L5.91 13.8l-4.82-1.51c-1.05-.33-1.07-1.05.22-1.55L20.14 3.1c.87-.32 1.63.2 1.36.4Z"/>
+
+                </svg>
+
+
+                @waxfaucet
+
+
+            </a>
+
+
+        </div>
+
+
+        <div class="copyright-footer">
+            © 2026 • waxfaucet
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+
+/* ========================= */
+/* CLAIM                     */
+/* ========================= */
+
+async function claim() {
+
+
+    const input =
+        document.getElementById('account');
+
+
+    const button =
+        document.getElementById('claimButton');
+
+
+    const message =
+        document.getElementById('message');
+
+
+    const account =
+        input.value.trim();
+
+
+    if (!account) {
+
+
+        message.className =
+            'error';
+
+
+        message.textContent =
+            'Introduce tu cuenta WAX.';
+
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
+
+
+    message.className =
+        'loading';
+
+
+    message.textContent =
+        'Enviando WAX...';
+
+
+    try {
+
+
+        const response =
+            await fetch('/api/claim', {
+
+                method:
+                    'POST',
+
+                headers: {
+
+                    'Content-Type':
+                        'application/json'
+
+                },
+
+                body:
+                    JSON.stringify({
+
+                        userAccount:
+                            account
+
+                    })
+
+            });
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            response.ok &&
+            data.success
+        ) {
+
+
+            message.className =
+                'success';
+
+
+            message.innerHTML =
+
+                '✅ Claim realizado correctamente.<br><br>' +
+
+                'Has recibido ' +
+
+                data.amount +
+
+                '<br><br>' +
+
+                '<a href="https://waxblock.io/transaction/' +
+
+                encodeURIComponent(
+                    data.transaction
+                ) +
+
+                '" target="_blank" rel="noopener noreferrer">' +
+
+                'Ver transacción' +
+
+                '</a>';
+
+
+            input.value =
+                '';
+
+
+            /*
+             * Recargar inmediatamente
+             * los últimos claims
+             */
+
+            loadRecentClaims();
+
+
+        } else {
+
+
+            message.className =
+                'error';
+
 
             message.textContent =
-                'Enviando WAX...';
 
-            try {
+                data.error ||
 
-                const response =
-                    await fetch('/api/claim', {
+                'No se pudo realizar el claim.';
 
-                        method: 'POST',
-
-                        headers: {
-                            'Content-Type':
-                                'application/json'
-                        },
-
-                        body: JSON.stringify({
-                            userAccount: account
-                        })
-                    });
-
-                const data =
-                    await response.json();
-
-                if (response.ok && data.success) {
-
-                    message.className = 'success';
-
-                    message.innerHTML =
-                        '✅ Claim realizado correctamente.<br><br>' +
-                        'Has recibido ' +
-                        data.amount +
-                        '<br><br>' +
-                        '<a href="https://waxblock.io/transaction/' +
-                        encodeURIComponent(data.transaction) +
-                        '" target="_blank" rel="noopener noreferrer">' +
-                        'Ver transacción' +
-                        '</a>';
-
-                    input.value = '';
-
-                } else {
-
-                    message.className = 'error';
-
-                    message.textContent =
-                        data.error ||
-                        'No se pudo realizar el claim.';
-                }
-
-            } catch (error) {
-
-                console.error(error);
-
-                message.className = 'error';
-
-                message.textContent =
-                    'No se pudo conectar con el servidor.';
-            }
-
-            button.disabled = false;
         }
-    </script>
 
-</body>
-</html>
+
+    } catch (error) {
+
+
+        console.error(error);
+
+
+        message.className =
+            'error';
+
+
+        message.textContent =
+            'No se pudo conectar con el servidor.';
+
+    }
+
+
+    button.disabled =
+        false;
+
+}
+
+
+/* ========================= */
+/* ÚLTIMOS CLAIMS             */
+/* ========================= */
+
+async function loadRecentClaims() {
+
+
+    const container =
+        document.getElementById(
+            'recentClaims'
+        );
+
+
+    try {
+
+
+        const response =
+            await fetch(
+                '/api/recent-claims'
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !data.success ||
+            !data.claims ||
+            data.claims.length === 0
+        ) {
+
+
+            container.innerHTML =
+
+                '<div class="no-claims">' +
+
+                'No hay claims todavía.' +
+
+                '</div>';
+
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+
+            data.claims
+                .map(function(claim) {
+
+
+                    return `
+
+                        <div class="claim-row">
+
+                            <div class="claim-account">
+
+                                ${claim.account}
+
+                            </div>
+
+                           
