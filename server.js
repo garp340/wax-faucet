@@ -32,229 +32,96 @@ const CLAIM_AMOUNT = '0.01000000 WAX';
 const TOKEN_CONTRACT = 'eosio.token';
 const COOLDOWN_MS = 60 * 60 * 1000;
 
-/*
- * Cooldown de los usuarios
- */
 const claims = new Map();
 
-/*
- * Últimos claims para mostrar en la web.
- * Solo guarda las últimas 10 cuentas.
- */
-const recentClaims = [];
-
-
 function configurationOK() {
-
     return PRIVATE_KEY.length > 0 &&
            FAUCET_ACCOUNT.length > 0;
-
 }
 
-
-/* ========================= */
-/* STATUS                    */
-/* ========================= */
-
 app.get('/api/status', (req, res) => {
-
     res.json({
-
         online: true,
-
-        configured:
-            configurationOK(),
-
-        faucetAccount:
-            FAUCET_ACCOUNT || null,
-
-        endpoint:
-            WAX_ENDPOINT,
-
-        amount:
-            CLAIM_AMOUNT
-
+        configured: configurationOK(),
+        faucetAccount: FAUCET_ACCOUNT || null,
+        endpoint: WAX_ENDPOINT,
+        amount: CLAIM_AMOUNT
     });
-
 });
-
-
-/* ========================= */
-/* ÚLTIMOS CLAIMS             */
-/* ========================= */
-
-app.get('/api/recent-claims', (req, res) => {
-
-    res.json({
-
-        success: true,
-
-        claims:
-            recentClaims
-
-    });
-
-});
-
-
-/* ========================= */
-/* CLAIM                     */
-/* ========================= */
 
 app.post('/api/claim', async (req, res) => {
-
     try {
-
         if (!PRIVATE_KEY) {
-
-            console.error(
-                'Falta WAX_PRIVATE_KEY'
-            );
+            console.error('Falta WAX_PRIVATE_KEY');
 
             return res.status(500).json({
-
                 success: false,
-
-                error:
-                    'El servidor no tiene configurada WAX_PRIVATE_KEY.'
-
+                error: 'El servidor no tiene configurada WAX_PRIVATE_KEY.'
             });
-
         }
-
 
         if (!FAUCET_ACCOUNT) {
-
-            console.error(
-                'Falta WAX_FAUCET_ACCOUNT'
-            );
+            console.error('Falta WAX_FAUCET_ACCOUNT');
 
             return res.status(500).json({
-
                 success: false,
-
-                error:
-                    'El servidor no tiene configurada WAX_FAUCET_ACCOUNT.'
-
+                error: 'El servidor no tiene configurada WAX_FAUCET_ACCOUNT.'
             });
-
         }
 
-
-        let userAccount =
-            req.body.userAccount;
-
+        let userAccount = req.body.userAccount;
 
         if (typeof userAccount !== 'string') {
-
             return res.status(400).json({
-
                 success: false,
-
-                error:
-                    'Introduce una cuenta WAX.'
-
+                error: 'Introduce una cuenta WAX.'
             });
-
         }
 
-
-        userAccount =
-            userAccount.trim().toLowerCase();
-
+        userAccount = userAccount.trim().toLowerCase();
 
         if (!/^[a-z1-5.]{1,12}$/.test(userAccount)) {
-
             return res.status(400).json({
-
                 success: false,
-
-                error:
-                    'La cuenta WAX no tiene un formato válido.'
-
+                error: 'La cuenta WAX no tiene un formato válido.'
             });
-
         }
-
 
         if (userAccount === FAUCET_ACCOUNT) {
-
             return res.status(400).json({
-
                 success: false,
-
-                error:
-                    'No puedes reclamar en la cuenta del faucet.'
-
+                error: 'No puedes reclamar en la cuenta del faucet.'
             });
-
         }
 
+        const now = Date.now();
+        const previousClaim = claims.get(userAccount);
 
-        const now =
-            Date.now();
-
-
-        const previousClaim =
-            claims.get(userAccount);
-
-
-        if (
-            previousClaim &&
-            now - previousClaim < COOLDOWN_MS
-        ) {
-
-            const remaining =
-                Math.ceil(
-                    (
-                        COOLDOWN_MS -
-                        (now - previousClaim)
-                    ) / 60000
-                );
-
+        if (previousClaim && now - previousClaim < COOLDOWN_MS) {
+            const remaining = Math.ceil(
+                (COOLDOWN_MS - (now - previousClaim)) / 60000
+            );
 
             return res.status(429).json({
-
                 success: false,
-
                 error:
                     'Ya has reclamado. Espera ' +
                     remaining +
                     ' minuto(s).'
-
             });
-
         }
 
-
-        const rpc =
-            new JsonRpc(
-                WAX_ENDPOINT,
-                { fetch }
-            );
-
+        const rpc = new JsonRpc(WAX_ENDPOINT, { fetch });
 
         const signatureProvider =
-            new JsSignatureProvider([
-                PRIVATE_KEY
-            ]);
+            new JsSignatureProvider([PRIVATE_KEY]);
 
-
-        const api =
-            new Api({
-
-                rpc,
-
-                signatureProvider,
-
-                textEncoder:
-                    new TextEncoder(),
-
-                textDecoder:
-                    new TextDecoder()
-
-            });
-
+        const api = new Api({
+            rpc,
+            signatureProvider,
+            textEncoder: new TextEncoder(),
+            textDecoder: new TextDecoder()
+        });
 
         console.log(
             'Enviando ' +
@@ -263,164 +130,51 @@ app.post('/api/claim', async (req, res) => {
             userAccount
         );
 
-
-        /*
-         * =========================
-         * TRANSFERENCIA WAX
-         * =========================
-         *
-         * Esta parte se mantiene
-         * igual que en tu código
-         * original.
-         */
-
-        const result =
-            await api.transact(
-
-                {
-
-                    actions: [
-
-                        {
-
-                            account:
-                                TOKEN_CONTRACT,
-
-                            name:
-                                'transfer',
-
-                            authorization: [
-
-                                {
-
-                                    actor:
-                                        FAUCET_ACCOUNT,
-
-                                    permission:
-                                        'active'
-
-                                }
-
-                            ],
-
-                            data: {
-
-                                from:
-                                    FAUCET_ACCOUNT,
-
-                                to:
-                                    userAccount,
-
-                                quantity:
-                                    CLAIM_AMOUNT,
-
-                                memo:
-                                    'WAX Faucet'
-
+        const result = await api.transact(
+            {
+                actions: [
+                    {
+                        account: TOKEN_CONTRACT,
+                        name: 'transfer',
+                        authorization: [
+                            {
+                                actor: FAUCET_ACCOUNT,
+                                permission: 'active'
                             }
-
+                        ],
+                        data: {
+                            from: FAUCET_ACCOUNT,
+                            to: userAccount,
+                            quantity: CLAIM_AMOUNT,
+                            memo: 'WAX Faucet'
                         }
-
-                    ]
-
-                },
-
-                {
-
-                    blocksBehind:
-                        3,
-
-                    expireSeconds:
-                        30
-
-                }
-
-            );
-
-
-        /*
-         * =========================
-         * GUARDAR COOLDOWN
-         * =========================
-         */
-
-        claims.set(
-            userAccount,
-            Date.now()
+                    }
+                ]
+            },
+            {
+                blocksBehind: 3,
+                expireSeconds: 30
+            }
         );
 
-
-        /*
-         * =========================
-         * GUARDAR ÚLTIMO CLAIM
-         * =========================
-         *
-         * Esto ocurre SOLO después
-         * de que la transferencia
-         * haya sido correcta.
-         */
-
-        recentClaims.unshift({
-
-            account:
-                userAccount,
-
-            amount:
-                CLAIM_AMOUNT
-
-        });
-
-
-        /*
-         * Máximo 10 claims
-         */
-
-        if (recentClaims.length > 10) {
-
-            recentClaims.pop();
-
-        }
-
+        claims.set(userAccount, Date.now());
 
         console.log(
             'Claim correcto: ' +
             result.transaction_id
         );
 
-
-        /*
-         * =========================
-         * RESPUESTA ORIGINAL
-         * =========================
-         */
-
         return res.json({
-
             success: true,
-
-            amount:
-                CLAIM_AMOUNT,
-
-            account:
-                userAccount,
-
-            transaction:
-                result.transaction_id
-
+            amount: CLAIM_AMOUNT,
+            account: userAccount,
+            transaction: result.transaction_id
         });
 
-
     } catch (error) {
+        console.error('ERROR:', error);
 
-        console.error(
-            'ERROR:',
-            error
-        );
-
-
-        let message =
-            'Error realizando la transferencia.';
-
+        let message = 'Error realizando la transferencia.';
 
         if (
             error &&
@@ -429,59 +183,27 @@ app.post('/api/claim', async (req, res) => {
             error.json.error.details &&
             error.json.error.details.length > 0
         ) {
-
-            message =
-                error.json.error.details[0].message;
-
-        } else if (
-            error &&
-            error.message
-        ) {
-
-            message =
-                error.message;
-
+            message = error.json.error.details[0].message;
+        } else if (error && error.message) {
+            message = error.message;
         }
 
-
         return res.status(500).json({
-
             success: false,
-
-            error:
-                message
-
+            error: message
         });
-
     }
-
 });
 
-
-/* ========================= */
-/* SERVER                    */
-/* ========================= */
-
 app.listen(PORT, () => {
-
     console.log('');
-
-    console.log(
-        '================================'
-    );
-
-    console.log(
-        '       WAX FAUCET ONLINE'
-    );
-
-    console.log(
-        '================================'
-    );
+    console.log('================================');
+    console.log('       WAX FAUCET ONLINE');
+    console.log('================================');
 
     console.log(
         'Cuenta:',
-        FAUCET_ACCOUNT ||
-        'NO CONFIGURADA'
+        FAUCET_ACCOUNT || 'NO CONFIGURADA'
     );
 
     console.log(
@@ -491,9 +213,7 @@ app.listen(PORT, () => {
 
     console.log(
         'Private key:',
-        PRIVATE_KEY
-            ? 'CONFIGURADA'
-            : 'NO CONFIGURADA'
+        PRIVATE_KEY ? 'CONFIGURADA' : 'NO CONFIGURADA'
     );
 
     console.log(
@@ -501,10 +221,6 @@ app.listen(PORT, () => {
         PORT
     );
 
-    console.log(
-        '================================'
-    );
-
+    console.log('================================');
     console.log('');
-
 });
